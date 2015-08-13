@@ -644,26 +644,6 @@ describe('http.js', function() {
           });
         });
       });
-      it('should expose net.Socket as .socket and .connection', function(done) {
-        var server = http2.createServer(serverOptions, function(request, response) {
-          expect(request.socket).to.equal(request.connection);
-          expect(request.socket).to.be.instanceof(net.Socket);
-          response.write('Pong');
-          response.end();
-          done();
-        });
-
-        server.listen(1248, 'localhost', function() {
-          var request = https.request({
-            host: 'localhost',
-            port: 1248,
-            path: '/',
-            ca: serverOptions.cert
-          });
-          request.write('Ping');
-          request.end();
-        });
-      });
     });
     describe('request and response with trailers', function() {
       it('should work as expected', function(done) {
